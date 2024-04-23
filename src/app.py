@@ -1,9 +1,9 @@
-from flask import Flask
+from flask import Flask, render_template
 
 
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/unix-v1')
 def index():
-    return "<h1>Hello</h>"
+    return render_template('unix-v1.html', hash="test")
