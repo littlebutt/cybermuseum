@@ -16,9 +16,8 @@ class UnixV1:
         instance_hash = md5.hexdigest()
         port = self.find_port()
         p = subprocess.Popen(['tmux', 'new', '-s', instance_hash, '-d'])
+        p = subprocess.Popen(f'tmux send -t {instance_hash} "cd /home/www" Enter', shell=True)
         p = subprocess.Popen(['tmux', 'send', '-t', instance_hash, 'ttyd', '-p', '8089', 'bash', 'Enter'], stdout=subprocess.DEVNULL)
-        time.sleep(1)
-        subprocess.Popen(f'tmux send -t {instance_hash} "cd /home/www & sh start.sh" Enter', shell=True)
         print(f'port={port} instance_hash={instance_hash}')
         return port, instance_hash
 
